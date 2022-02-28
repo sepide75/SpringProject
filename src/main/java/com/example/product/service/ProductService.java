@@ -2,6 +2,7 @@ package com.example.product.service;
 
 import com.example.product.converter.ProductConverter;
 import com.example.product.dto.ProductDto;
+import com.example.product.exception.ProductNotFoundException;
 import com.example.product.model.Product;
 import com.example.product.repository.ProductRepository;
 import org.slf4j.LoggerFactory;
@@ -34,7 +35,7 @@ public class ProductService {
         Optional<Product> p = productRepository.findById(id);
         Product product;
         if (p.isPresent()) product = p.get();
-        else throw new Exception("product doesn't exist");
+        else throw new ProductNotFoundException();
         ProductDto productDto = productConverter.entityToDto(product);
         return productDto;
     }
